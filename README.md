@@ -1,68 +1,51 @@
-# Zoom API Integration Project
+# Bài Tập Lớn: Tích Hợp Zoom API
 
-This project provides a Node.js application for integrating with the Zoom API. It consists of two main parts: an Express.js server (`server.js`) for handling OAuth authorization to receive an access token from Zoom, and an API client (`index.js`) for interacting with Zoom, such as retrieving and creating meetings.
+## Thành viên: 
+- **Họ tên**: Vũ Anh Quân  
+- **Mã sinh viên**: B21DCCN618
 
-## Prerequisites
+## Mô tả ngắn gọn
+Dự án này cung cấp một ứng dụng Node.js giúp tích hợp với Zoom API. Dự án bao gồm hai phần chính:
+1. **Máy chủ Express.js** (`server.js`) để xử lý xác thực OAuth và nhận token truy cập từ Zoom.
+2. **Client API** (`index.js`) để tương tác với Zoom, thực hiện các tác vụ như lấy danh sách các cuộc họp và tạo mới cuộc họp.
 
-- Node.js and npm (Node Package Manager)
-- Zoom account with Developer privileges
-- Registered Zoom OAuth app with Client ID and Secret
+## Công nghệ lựa chọn:
+- **Node.js** và **Express.js** để xây dựng máy chủ.
+- **Axios** để thực hiện các yêu cầu HTTP tới Zoom API.
+- **Zoom OAuth 2.0** để xác thực và lấy token truy cập.
+- **Ngrok** để phát triển và kiểm thử webhook sự kiện từ Zoom trong môi trường cục bộ.
 
-## Setup
+## Yêu cầu trước khi bắt đầu
 
-1. **Clone/Download the Project**:
-   - If the project is hosted on a version control system like GitHub, clone it to your local machine. Otherwise, download and extract the project files.
+- **Node.js** và **npm** (Node Package Manager)
+- **Tài khoản Zoom** có quyền nhà phát triển
+- Đã đăng ký ứng dụng OAuth trên Zoom với **Client ID** và **Client Secret**
 
-2. **Install Dependencies**:
-   - Navigate to the project directory and run the following command to install necessary Node.js packages:
+## Cài đặt
+
+1. **Clone hoặc Tải về Dự án**:
+   - Clone dự án từ GitHub hoặc tải và giải nén file dự án.
+
+2. **Cài đặt các Thư viện**:
+   - Chạy lệnh sau trong thư mục dự án để cài đặt các thư viện cần thiết:
      ```bash
      npm install
      ```
 
-3. **Environment Variables**:
-   - Create a `.env` file in the project root with the following variables:
-     ```
+3. **Thiết lập biến môi trường**:
+   - Tạo file `.env` trong thư mục gốc của dự án với các biến sau:
+     ```env
      ZOOM_API_KEY=your_zoom_client_id
      ZOOM_API_SECRET=your_zoom_client_secret
-     REDIRECT_URI=http://localhost:3000
+     REDIRECT_URI=https://d70e-1-55-255-239.ngrok-free.app/callback
+     WEBHOOK_URL=https://d70e-1-55-255-239.ngrok-free.app/webhook
      TOKEN=your_zoom_oauth_token
      ```
-   - `ZOOM_API_KEY` and `ZOOM_API_SECRET` are obtained from your Zoom OAuth App.
-   - `REDIRECT_URI` should match the redirect URI set in your Zoom App.
-   - `TOKEN` will be your Zoom OAuth token, obtained after running the OAuth flow.
+   - `ZOOM_API_KEY` và `ZOOM_API_SECRET` lấy từ ứng dụng OAuth trên Zoom.
+   - `REDIRECT_URI` và `WEBHOOK_URL` sử dụng URL mà ngrok cung cấp.
 
-## Running the Server
+## Chạy máy chủ
 
-- Start the Express server to handle OAuth:
+- Khởi chạy máy chủ Express để xử lý OAuth:
   ```bash
   node server.js
-  ```
-- This will start a server on `http://localhost:3000`. Use this URL for the Zoom OAuth redirect.
-
-## Usage
-
-### OAuth Token Generation
-
-- Access `http://localhost:3000` and complete the OAuth flow to generate an access token. This token is then used in subsequent API calls.
-
-### API Client
-
-- The `index.js` file contains functions to interact with the Zoom API:
-  - `getMeetings()`: Retrieves a list of meetings for the authenticated user.
-  - `createMeeting(...)`: Creates a new meeting with specified parameters.
-
-- To use these functions:
-  - Ensure that the `TOKEN` in your `.env` file is set with a valid OAuth token.
-  - Run `index.js`:
-    ```bash
-    node index.js
-    ```
-
-## Security Notes
-
-- Never commit sensitive data like `ZOOM_API_KEY`, `ZOOM_API_SECRET`, or `TOKEN` to version control. Always use environment variables.
-- In a production environment, ensure secure handling of OAuth tokens and client secrets.
-
-## License
-
-- Specify your licensing terms here, or state if the project is open-source and free to use.
